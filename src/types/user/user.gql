@@ -1,0 +1,21 @@
+type User{
+    firstname: String!
+    lastname: String!
+    picture: String
+    roles: Roles
+    email: String!
+}
+
+type Roles {
+    user: User!
+    mentor: Boolean!
+    admin: Boolean!
+    workshopCustomer: Boolean!
+    behaviouralCoach: Boolean!
+    technicalCoach: Boolean!
+}
+
+type Query {
+    user: User
+    roles: Roles!
+}
