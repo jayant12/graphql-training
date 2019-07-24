@@ -12,3 +12,12 @@ extend type Query {
   myCat: [Cat]
   persons: [Person]
 }
+
+input PersonInput {
+  name: String!
+  age: Int
+}
+
+type Mutation {
+  newPerson(person: PersonInput): Person
+}
