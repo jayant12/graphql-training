@@ -12,11 +12,13 @@ export const start = async () => {
     type Cat {
       name: String
       age: Int
+      owner: Person
     }
 
     type Person {
       name: String
       age: Int
+      pet: Cat
     }
 
     type Query {
@@ -35,15 +37,34 @@ export const start = async () => {
     resolvers: {
       Query: {
         myCat() {
-          return {name: 'Garfield'};
-        },
+          return {}
+        } ,
         person() {
-          return {
-            name: 'Jayant',
-            age: 25
-          };
+          return {}
+        },
+      },
+      Cat: {
+        name() {
+          return "Garfield"
+        },
+        age() {
+          return 2
+        },
+        owner(){
+          return {}
         }
       },
+      Person: {
+        name() {
+          return "Jayant"
+        },
+        age() {
+          return 25
+        },
+        pet() {
+          return {} 
+        }
+      }
     },
   })
 
