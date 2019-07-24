@@ -7,9 +7,7 @@ export class RestService extends RESTDataSource {
     this.baseURL = config.host_url || 'https://api.github.com/users/'
   }
 
-  async getUser() {
-    const user =  await this.get('/jayant12')
-      console.log(user);
-    return user;
+  getUser() {
+    return {name: "jayant"}
   }
 };
