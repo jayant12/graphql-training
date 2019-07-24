@@ -1,18 +1,15 @@
 type User{
-    firstname: String!
-    lastname: String!
-    picture: String
+    login: String!
+    id: Int
+    avatar_url: String
+    type: String
+    name: String!
     roles: Roles
-    email: String!
 }
 
 type Roles {
     user: User!
-    mentor: Boolean!
     admin: Boolean!
-    workshopCustomer: Boolean!
-    behaviouralCoach: Boolean!
-    technicalCoach: Boolean!
 }
 
 type Query {

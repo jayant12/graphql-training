@@ -4,6 +4,7 @@ import { merge } from 'lodash'
 import user from './types/user/user.resolvers'
 import example from './types/example/example.resolvers'
 import config from './config'
+import { RestService } from './datasource'
 
 const types = ['user', 'example']
 
@@ -18,6 +19,10 @@ export const start = async () => {
   const server = new ApolloServer({
     typeDefs: [rootSchema, ...schemaTypes],
     resolvers: merge({}, example, user),
+    dataSources: () => ({
+      restService:  new RestService()
+    }),
+    tracing: true
   })
 
   const { url } = await server.listen({ port: config.port })
