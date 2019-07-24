@@ -1,0 +1,14 @@
+type Cat {
+  name: String!
+  age: Int
+}
+
+type Person {
+  name: String
+  age: Int
+}
+
+extend type Query {
+  myCat: [Cat]
+  persons: [Person]
+}
