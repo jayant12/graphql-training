@@ -21,59 +21,29 @@ export const start = async () => {
 
     type Query {
       myCat: Cat
-      persons: [Person]
-    }
-
-    type Mutation {
-      newPerson(name: String!, age: Int): Person
+      person: Person
     }
   
     schema {
       query: Query
-      mutation: Mutation
     }
   `
   const schemaTypes = await Promise.all(types.map(loadTypeSchema))
-
-  const persons = [
-    {
-    name: 'Jayant',
-    age: 25
-    },
-    {
-      name: 'Scott',
-      age: 26
-    }
-  ];
-
-  const catResolver = (root, args, ctx) => {
-    return {name: 'Garfield'};
-  }
-  
-  const personResolver = (root, args, ctx) => {
-    return persons;
-  }
-
-  const newPersonResolver = (root, args, ctx) => {
-    let newPerson = {
-      name: args.name,
-      age: args.age
-    };
-
-    persons.push(newPerson);
-    return newPerson
-  }
 
   const server = new ApolloServer({
     typeDefs: rootSchema,
     resolvers: {
       Query: {
-        myCat: catResolver,
-        persons: personResolver
+        myCat() {
+          return {name: 'Garfield'};
+        },
+        person() {
+          return {
+            name: 'Jayant',
+            age: 25
+          };
+        }
       },
-      Mutation: {
-        newPerson: newPersonResolver
-      }
     },
   })
 
