@@ -1,6 +1,20 @@
+
+type Dog {
+  name: String!
+  age: Int
+  breed: String
+}
+
 type Cat {
   name: String!
   age: Int
+  furColor: String
+}
+
+type Parrot {
+  name: String!,
+  age: Int,
+  color: String
 }
 
 type Person {
@@ -9,6 +23,8 @@ type Person {
 }
 
 extend type Query {
-  myCat: [Cat]
+  myCat: Cat
+  myDog: Dog
+  myParrot: Parrot
   persons: [Person]
 }
