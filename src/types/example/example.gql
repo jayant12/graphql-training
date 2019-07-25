@@ -1,6 +1,28 @@
-type Cat {
+interface Pet {
   name: String!
   age: Int
+  type: String
+}
+
+type Dog implements Pet {
+  name: String!
+  age: Int
+  type: String
+  breed: String
+}
+
+type Cat implements Pet {
+  name: String!
+  age: Int
+  type: String
+  furColor: String
+}
+
+type Parrot implements Pet {
+  name: String!
+  age: Int
+  type: String
+  color: String
 }
 
 type Person {
@@ -9,6 +31,9 @@ type Person {
 }
 
 extend type Query {
-  myCat: [Cat]
+  myCat: Cat
+  myDog: Dog
+  myParrot: Parrot
+  myPets: [Pet]
   persons: [Person]
 }
