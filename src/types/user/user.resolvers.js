@@ -3,6 +3,16 @@ const userResolver = (root, args, {dataSources}) => {
   return data;
 }
 
+const friendResolver = (root, args, {dataSources}) => {
+  const data = dataSources.restService.getNames()
+  return data;
+}
+
+const addFriendResolver = (root, args, {dataSources}) => {
+  const data = dataSources.restService.addNames(args)
+  return data;
+}
+
 const rolesResolver = (root, args, {dataSources, context}) => {
   const user = dataSources.restService.getUser()
   return user
@@ -35,7 +45,11 @@ const adminResolver = (user) => {
 export default {
   Query: {
       user: userResolver,
-      roles: rolesResolver
+      roles: rolesResolver,
+      friend: friendResolver
+  },
+  Mutation: {
+    addFriend: addFriendResolver
   },
   User: {
       login,

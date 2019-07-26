@@ -7,6 +7,10 @@ type User{
     roles: Roles
 }
 
+type Friend {
+  name: String
+}
+
 type Roles {
     user: User!
     admin: Boolean!
@@ -14,5 +18,10 @@ type Roles {
 
 type Query {
     user: User
+    friend: [Friend]
     roles: Roles!
+}
+
+type Mutation {
+  addFriend(name: String!): [Friend]
 }

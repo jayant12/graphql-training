@@ -12,6 +12,7 @@ export const start = async () => {
   const rootSchema = `
     schema {
       query: Query
+      mutation: Mutation
     }
   `
   const schemaTypes = await Promise.all(types.map(loadTypeSchema))
