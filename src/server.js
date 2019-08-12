@@ -16,16 +16,49 @@ export const start = async () => {
       price: Int
     }
 
+    input BookInput {
+      id: Int!
+      title: String
+      status: String
+      price: Int
+    }
+
+    type Mutation {
+      newBook(book: BookInput): Book
+    }
+
     type Query {
       myBook: Book,
-      allBooks: [Book]
+      allBooks: [Book],
     }
   
     schema {
-      query: Query
+      query: Query,
+      mutation: Mutation
     }
   `
   const schemaTypes = await Promise.all(types.map(loadTypeSchema))
+
+  const books = [
+    {
+      id: 1,
+      title: "H C Verma",
+      status: "Available",
+      price: 280
+    }
+  ];
+
+  const newBookResolver = (root, args, ctx) => {
+    const bookObj = {
+      id: args.book.id,
+      title: args.book.title,
+      status: args.book.status,
+      price: args.book.price
+    };
+  
+    books.push(bookObj);
+    return bookObj;
+  }
 
   const server = new ApolloServer({
     typeDefs: rootSchema,
@@ -38,8 +71,14 @@ export const start = async () => {
             status: "Available",
             price: 280
           };
+        },
+        allBooks() {
+          return books;
         }
       },
+      Mutation: {
+        newBook: newBookResolver
+      }
     },
   })
 
