@@ -9,19 +9,16 @@ const types = ['user']
 
 export const start = async () => {
   const rootSchema = `
-    type Cat {
-      name: String
-      age: Int
-    }
-
-    type Person {
-      name: String
-      age: Int
+    type Book {
+      id: Int
+      title: String
+      status: String
+      price: Int
     }
 
     type Query {
-      myCat: Cat
-      person: Person
+      myBook: Book,
+      allBooks: [Book]
     }
   
     schema {
@@ -34,13 +31,12 @@ export const start = async () => {
     typeDefs: rootSchema,
     resolvers: {
       Query: {
-        myCat() {
-          return {name: 'Garfield'};
-        },
-        person() {
+        myBook() {
           return {
-            name: 'Jayant',
-            age: 25
+            id: 1,
+            title: "H C Verma",
+            status: "Available",
+            price: 280
           };
         }
       },
