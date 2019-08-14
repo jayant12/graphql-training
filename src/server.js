@@ -30,11 +30,20 @@ export const start = async () => {
     type Query {
       myBook: Book,
       allBooks: [Book],
+      user: User
     }
   
     schema {
-      query: Query,
+      query: Query, 
       mutation: Mutation
+    }
+    
+    type User {
+      id: Int!
+      name: String
+      email: String
+      isPaid: Boolean
+      booksStatus: String
     }
   `
   const schemaTypes = await Promise.all(types.map(loadTypeSchema))
@@ -48,6 +57,23 @@ export const start = async () => {
     }
   ];
 
+  const user = {
+    id: 1,
+    name: 'Rahul',
+    email: 'abc@gmail.com',
+    isPaid: false
+  };
+
+  const user1 = {
+    id: 1,
+    name: 'Rahul',
+    email: 'abc@gmail.com',
+    isPaid: false
+  };
+
+  let allUsers = [];
+  allUsers.push(user);
+
   const newBookResolver = (root, args, ctx) => {
     const bookObj = {
       id: args.book.id,
@@ -58,7 +84,16 @@ export const start = async () => {
   
     books.push(bookObj);
     return bookObj;
-  }
+  };
+
+  const newUserResolver = (root, args) => {
+    return {
+      id: args.user.id,
+      name: args.user.name,
+      email: args.user.email,
+      isPaid: args.user.isPaid
+    }
+  };
 
   const server = new ApolloServer({
     typeDefs: rootSchema,
@@ -74,15 +109,23 @@ export const start = async () => {
         },
         allBooks() {
           return books;
+        },
+        user() {
+          return {
+            id: 1,
+            name: 'Rahul',
+            email: 'abc@gmail.com',
+            isPaid: false
+          };
         }
       },
       Mutation: {
         newBook: newBookResolver
       }
     },
-  })
+  });
 
-  const { url } = await server.listen({ port: config.port })
+  const { url } = await server.listen({ port: config.port });
 
   console.log(`GQL server ready at ${url}`)
-}
+};
